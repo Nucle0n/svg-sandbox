@@ -1,26 +1,15 @@
+import { loadSvg } from "./svg-loader.js";
+import { inspectSvg } from "./svg-inspector.js";
+
 const SVG_PATH = "assets/svg/carapuce.svg";
+const SVG_CONTAINER_SELECTOR = "#svg-container";
 
-async function loadSvg() {
-    const svgContainer = document.querySelector("#svg-container");
-
+async function initializeApp() {
     try {
-        const response = await fetch(SVG_PATH);
-
-        if (!response.ok) {
-            throw new Error(
-                `Impossible de charger le SVG : ${response.status}`
-            );
-        }
-
-        const svgContent = await response.text();
-
-        svgContainer.innerHTML = svgContent;
-
-        const svgElement = svgContainer.querySelector("svg");
-
-        if (svgElement === null) {
-            throw new Error("Le fichier chargé ne contient aucun élément SVG.");
-        }
+        const svgElement = await loadSvg(
+            SVG_PATH,
+            SVG_CONTAINER_SELECTOR
+        );
 
         svgElement.id = "carapuce-svg";
         svgElement.setAttribute("role", "img");
@@ -33,47 +22,24 @@ async function loadSvg() {
     } catch (error) {
         console.error(error);
 
-        svgContainer.innerHTML = `
-            <p class="error-message">
-                Le SVG n'a pas pu être chargé.
-            </p>
-        `;
+        displayLoadingError();
     }
 }
 
-function inspectSvg(svgElement) {
-    const styleElement = svgElement.querySelector("style");
+function displayLoadingError() {
+    const svgContainer = document.querySelector(
+        SVG_CONTAINER_SELECTOR
+    );
 
-    if (styleElement === null) {
-        console.log("Le SVG ne contient aucune feuille de style intégrée.");
+    if (svgContainer === null) {
         return;
     }
 
-    const classMatches = styleElement.textContent.match(
-    /\.[A-Za-z_][A-Za-z0-9_-]*/g
-	);
-
-
-    if (classMatches === null) {
-        console.log("Aucune classe CSS trouvée dans le SVG.");
-        return;
-    }
-
-    const classNames = [
-        ...new Set(
-            classMatches.map((className) => className.slice(1))
-        ),
-    ];
-
-    console.group("SVG Inspection");
-
-	console.log(`Classes found (${classNames.length})`);
-
-	for (const className of classNames) {
-		console.log(`- ${className}`);
-	}
-
-	console.groupEnd();
+    svgContainer.innerHTML = `
+        <p class="error-message">
+            Le SVG n'a pas pu être chargé.
+        </p>
+    `;
 }
 
-loadSvg();
+initializeApp();
