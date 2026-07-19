@@ -1,2 +1,18 @@
-# svg-sandbox
-An interactive sandbox for exploring and customizing SVG graphics.
+# SVG Sandbox
+
+An interactive playground for exploring SVG graphics.
+
+## Features
+
+- Display SVG files
+- Live color editing
+- Theme switching
+- SVG source exploration
+- Export customized SVG
+
+## Technologies
+
+- HTML
+- CSS
+- JavaScript
+- SVG
