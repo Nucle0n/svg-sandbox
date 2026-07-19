@@ -1,4 +1,4 @@
-import { createClassList } from "./ui.js";
+import { createColorControls } from "./ui.js";
 import { loadSvg } from "./svg-loader.js";
 import { inspectSvg } from "./svg-inspector.js";
 
@@ -19,10 +19,14 @@ async function initializeApp() {
             "Illustration vectorielle de Carapuce"
         );
 
-        const classNames =
+        const svgClasses =
 			inspectSvg(svgElement);
 
-		createClassList(classNames);
+		createColorControls(
+		svgClasses,
+		svgElement,
+	);
+
     } catch (error) {
         console.error(error);
 
