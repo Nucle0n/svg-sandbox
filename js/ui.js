@@ -1,4 +1,4 @@
-export function createClassList(classNames) {
+export function createClassList(svgClasses) {
 
     const sidebar =
         document.querySelector("#sidebar");
@@ -17,15 +17,13 @@ export function createClassList(classNames) {
 
     list.className = "class-list";
 
-    for (const className of classNames) {
+    for (const svgClass of svgClasses) {
+		const item = document.createElement("li");
 
-        const item =
-            document.createElement("li");
+		item.textContent = svgClass.name;
 
-        item.textContent = className;
-
-        list.appendChild(item);
-    }
+		list.appendChild(item);
+	}
 
     sidebar.appendChild(list);
 }
