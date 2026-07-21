@@ -294,3 +294,18 @@ body {
 .theme-buttons button:last-child {
     grid-column: 1 / -1;
 }
+
+#export-controls {
+    margin-top: 28px;
+    padding-top: 24px;
+
+    border-top: 1px solid #2d3139;
+}
+
+#export-controls h2 {
+    margin-bottom: 18px;
+}
+
+#export-controls button {
+    width: 100%;
+}
