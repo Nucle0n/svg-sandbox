@@ -26,65 +26,44 @@ export function createColorControls(
     list.className = "class-list";
 
     for (const svgClass of svgClasses) {
+		const item = document.createElement("li");
 
-		const item =
-			document.createElement("li");
-
-		item.style.display = "flex";
-		item.style.alignItems = "center";
-		item.style.justifyContent = "space-between";
-		
-		const colorInfo = document.createElement("div");
-
-		colorInfo.className = "color-info";
-
-		const colorPreview = document.createElement("span");
-
-		colorPreview.className = "color-preview";
+		item.className = "color-control";
 
 		const label = document.createElement("span");
 
 		label.textContent = svgClass.name;
 
-		colorInfo.appendChild(colorPreview);
-		colorInfo.appendChild(label);
-
-		item.appendChild(colorInfo);
-		
-		const picker =
-			document.createElement("input");
+		const picker = document.createElement("input");
 
 		picker.type = "color";
-		
-		if (svgClass.color !== null) {
+		picker.className = "color-picker";
+		picker.setAttribute(
+			"aria-label",
+			`Modifier la couleur de ${svgClass.name}`
+		);
 
+		if (svgClass.color !== null) {
 			picker.value = svgClass.color;
 			picker.dataset.originalColor = svgClass.color;
-			colorPreview.style.backgroundColor = svgClass.color;
 		} else {
 			picker.value = "#000000";
 			picker.dataset.originalColor = "#000000";
-			colorPreview.style.backgroundColor = "#000000";
 		}
-		
-		picker.addEventListener(
-			"input",
-			() => {
-				colorPreview.style.backgroundColor = picker.value;
 
-				setClassFill(
-					svgElement,
-					svgClass.name,
-					picker.value,
-				);
-			},
-		);
-		
+		picker.addEventListener("input", () => {
+			setClassFill(
+				svgElement,
+				svgClass.name,
+				picker.value
+			);
+		});
+
+		item.appendChild(label);
 		item.appendChild(picker);
 
 		list.appendChild(item);
 	}
-
     sidebar.appendChild(list);
 	
 	const resetButton = document.createElement("button");
@@ -100,11 +79,6 @@ export function createColorControls(
 			'input[type="color"]'
 		)) {
 			picker.value = picker.dataset.originalColor;
-			const preview =
-				picker.closest("li").querySelector(".color-preview");
-
-			preview.style.backgroundColor =
-				picker.dataset.originalColor;
 		}
 	});
 

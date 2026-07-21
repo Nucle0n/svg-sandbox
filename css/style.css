@@ -167,18 +167,45 @@ body {
     background: #303540;
 }
 
-.color-info {
+.color-control {
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: space-between;
+
+    min-height: 38px;
+    padding: 6px 8px;
+
+    border-radius: 8px;
 }
 
-.color-preview {
-    width: 16px;
-    height: 16px;
+.color-control:hover {
+    background: #ffffff08;
+}
 
-    flex: 0 0 auto;
+.color-picker {
+    width: 30px;
+    height: 30px;
 
-    border: 1px solid #ffffff55;
-    border-radius: 4px;
+    padding: 0;
+
+    border: none;
+    border-radius: 6px;
+
+    background: transparent;
+
+    cursor: pointer;
+}
+
+.color-picker::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.color-picker::-webkit-color-swatch {
+    border: 1px solid #ffffff35;
+    border-radius: 6px;
+}
+
+.color-picker::-moz-color-swatch {
+    border: 1px solid #ffffff35;
+    border-radius: 6px;
 }
