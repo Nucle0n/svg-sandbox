@@ -1,13 +1,38 @@
 const OVERRIDE_STYLE_ID = "svg-style-overrides";
 
-export function setClassFill(svgElement, className, color) {
-    const styleElement = getOrCreateOverrideStyle(svgElement);
+export function setClassProperty(
+    svgElement,
+    className,
+    property,
+    value,
+) {
+    const styleElement =
+        getOrCreateOverrideStyle(svgElement);
 
-    const rules = getExistingRules(styleElement);
+    const rules =
+        getExistingRules(styleElement);
 
-    rules[className] = color;
+    if (rules[className] === undefined) {
+        rules[className] = {};
+    }
 
-    styleElement.textContent = buildStylesheet(rules);
+    rules[className][property] = value;
+
+    styleElement.textContent =
+        buildStylesheet(rules);
+}
+
+export function setClassFill(
+    svgElement,
+    className,
+    color,
+) {
+    setClassProperty(
+        svgElement,
+        className,
+        "fill",
+        color,
+    );
 }
 
 export function resetClassFills(svgElement) {
@@ -46,12 +71,26 @@ function getOrCreateOverrideStyle(svgElement) {
 function getExistingRules(styleElement) {
     const rules = {};
 
-    const matches = styleElement.textContent.matchAll(
-        /\.([A-Za-z_][A-Za-z0-9_-]*)\s*\{\s*fill\s*:\s*([^;]+);?\s*\}/g
+    const ruleMatches = styleElement.textContent.matchAll(
+        /\.([A-Za-z_][A-Za-z0-9_-]*)\s*\{([^}]*)\}/g
     );
 
-    for (const match of matches) {
-        rules[match[1]] = match[2].trim();
+    for (const ruleMatch of ruleMatches) {
+        const className = ruleMatch[1];
+        const declarations = ruleMatch[2];
+
+        rules[className] = {};
+
+        const declarationMatches = declarations.matchAll(
+            /([A-Za-z-]+)\s*:\s*([^;]+);?/g
+        );
+
+        for (const declarationMatch of declarationMatches) {
+            const property = declarationMatch[1].trim();
+            const value = declarationMatch[2].trim();
+
+            rules[className][property] = value;
+        }
     }
 
     return rules;
@@ -59,9 +98,15 @@ function getExistingRules(styleElement) {
 
 function buildStylesheet(rules) {
     return Object.entries(rules)
-        .map(
-            ([className, color]) =>
-                `.${className} { fill: ${color}; }`
-        )
-        .join("\n");
+        .map(([className, declarations]) => {
+            const properties = Object.entries(declarations)
+                .map(
+                    ([property, value]) =>
+                        `    ${property}: ${value};`
+                )
+                .join("\n");
+
+            return `.${className} {\n${properties}\n}`;
+        })
+        .join("\n\n");
 }

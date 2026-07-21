@@ -8,17 +8,17 @@ export function createColorControls(
     svgElement,
 ) {
 
-    const sidebar =
-        document.querySelector("#sidebar");
+    const colorControls =
+		document.querySelector("#color-controls");
 
-    sidebar.innerHTML = "";
+	colorControls.innerHTML = "";
 
     const title =
         document.createElement("h2");
 
     title.textContent = "Colors";
 
-    sidebar.appendChild(title);
+    colorControls.appendChild(title);
 
     const list =
         document.createElement("ul");
@@ -64,7 +64,7 @@ export function createColorControls(
 
 		list.appendChild(item);
 	}
-    sidebar.appendChild(list);
+    colorControls.appendChild(list);
 	
 	const resetButton = document.createElement("button");
 
@@ -82,5 +82,5 @@ export function createColorControls(
 		}
 	});
 
-	sidebar.appendChild(resetButton);
+	colorControls.appendChild(resetButton);
 }

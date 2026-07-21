@@ -1,3 +1,4 @@
+import { createDisplayControls } from "./display-controls.js";
 import { createColorControls } from "./ui.js";
 import { loadSvg } from "./svg-loader.js";
 import { inspectSvg } from "./svg-inspector.js";
@@ -26,6 +27,8 @@ async function initializeApp() {
 		svgClasses,
 		svgElement,
 	);
+	
+	createDisplayControls(svgElement);
 
     } catch (error) {
         console.error(error);

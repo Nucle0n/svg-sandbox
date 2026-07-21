@@ -209,3 +209,50 @@ body {
     border: 1px solid #ffffff35;
     border-radius: 6px;
 }
+
+#display-controls {
+    margin-top: 28px;
+    padding-top: 24px;
+
+    border-top: 1px solid #2d3139;
+}
+
+#display-controls h2 {
+    margin-bottom: 18px;
+}
+
+#display-controls label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.range-control {
+    display: grid;
+    grid-template-columns: 1fr 52px;
+    gap: 12px;
+    align-items: center;
+}
+
+.range-control input[type="range"] {
+    width: 100%;
+}
+
+.range-control output {
+    text-align: right;
+    color: #a9adb7;
+    font-variant-numeric: tabular-nums;
+}
+
+#svg-container svg {
+    transform-origin: center;
+    transition: transform 120ms ease;
+}
+
+#display-controls .range-control + label {
+    margin-top: 18px;
+}
+
+.workspace.checkerboard-hidden {
+    background-image: none;
+    background-color: #ffffff;
+}
