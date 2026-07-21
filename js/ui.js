@@ -1,4 +1,7 @@
-import { setClassFill } from "./svg-styler.js";
+import {
+    resetClassFills,
+    setClassFill,
+} from "./svg-styler.js";
 
 export function createColorControls(
     svgClasses,
@@ -46,8 +49,11 @@ export function createColorControls(
 		
 		if (svgClass.color !== null) {
 
-			picker.value =
-				svgClass.color;
+			picker.value = svgClass.color;
+			picker.dataset.originalColor = svgClass.color;
+		} else {
+			picker.value = "#000000";
+			picker.dataset.originalColor = "#000000";
 		}
 		
 		picker.addEventListener(
@@ -69,4 +75,22 @@ export function createColorControls(
 	}
 
     sidebar.appendChild(list);
+	
+	const resetButton = document.createElement("button");
+
+	resetButton.type = "button";
+	resetButton.className = "reset-button";
+	resetButton.textContent = "Reset colors";
+
+	resetButton.addEventListener("click", () => {
+		resetClassFills(svgElement);
+
+		for (const picker of list.querySelectorAll(
+			'input[type="color"]'
+		)) {
+			picker.value = picker.dataset.originalColor;
+		}
+	});
+
+	sidebar.appendChild(resetButton);
 }

@@ -147,3 +147,22 @@ body {
 
     margin: 8px 0;
 }
+
+.reset-button {
+    width: 100%;
+    margin-top: 24px;
+    padding: 10px 14px;
+
+    border: 1px solid #3a3f49;
+    border-radius: 10px;
+
+    background: #242832;
+    color: #ffffff;
+
+    font: inherit;
+    cursor: pointer;
+}
+
+.reset-button:hover {
+    background: #303540;
+}

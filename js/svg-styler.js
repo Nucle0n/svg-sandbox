@@ -10,6 +10,18 @@ export function setClassFill(svgElement, className, color) {
     styleElement.textContent = buildStylesheet(rules);
 }
 
+export function resetClassFills(svgElement) {
+    const styleElement = svgElement.querySelector(
+        `#${OVERRIDE_STYLE_ID}`
+    );
+
+    if (styleElement === null) {
+        return;
+    }
+
+    styleElement.remove();
+}
+
 function getOrCreateOverrideStyle(svgElement) {
     let styleElement = svgElement.querySelector(
         `#${OVERRIDE_STYLE_ID}`
