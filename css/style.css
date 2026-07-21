@@ -166,3 +166,19 @@ body {
 .reset-button:hover {
     background: #303540;
 }
+
+.color-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.color-preview {
+    width: 16px;
+    height: 16px;
+
+    flex: 0 0 auto;
+
+    border: 1px solid #ffffff55;
+    border-radius: 4px;
+}

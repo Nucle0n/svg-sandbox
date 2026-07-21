@@ -33,14 +33,23 @@ export function createColorControls(
 		item.style.display = "flex";
 		item.style.alignItems = "center";
 		item.style.justifyContent = "space-between";
+		
+		const colorInfo = document.createElement("div");
 
-		const label =
-			document.createElement("span");
+		colorInfo.className = "color-info";
 
-		label.textContent =
-			svgClass.name;
+		const colorPreview = document.createElement("span");
 
-		item.appendChild(label);
+		colorPreview.className = "color-preview";
+
+		const label = document.createElement("span");
+
+		label.textContent = svgClass.name;
+
+		colorInfo.appendChild(colorPreview);
+		colorInfo.appendChild(label);
+
+		item.appendChild(colorInfo);
 		
 		const picker =
 			document.createElement("input");
@@ -51,21 +60,23 @@ export function createColorControls(
 
 			picker.value = svgClass.color;
 			picker.dataset.originalColor = svgClass.color;
+			colorPreview.style.backgroundColor = svgClass.color;
 		} else {
 			picker.value = "#000000";
 			picker.dataset.originalColor = "#000000";
+			colorPreview.style.backgroundColor = "#000000";
 		}
 		
 		picker.addEventListener(
 			"input",
 			() => {
+				colorPreview.style.backgroundColor = picker.value;
 
 				setClassFill(
 					svgElement,
 					svgClass.name,
 					picker.value,
 				);
-
 			},
 		);
 		
@@ -89,6 +100,11 @@ export function createColorControls(
 			'input[type="color"]'
 		)) {
 			picker.value = picker.dataset.originalColor;
+			const preview =
+				picker.closest("li").querySelector(".color-preview");
+
+			preview.style.backgroundColor =
+				picker.dataset.originalColor;
 		}
 	});
 
