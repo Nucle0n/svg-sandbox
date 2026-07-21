@@ -38,6 +38,7 @@ export function createColorControls(
 
 		picker.type = "color";
 		picker.className = "color-picker";
+		picker.dataset.className = svgClass.name;
 		picker.setAttribute(
 			"aria-label",
 			`Modifier la couleur de ${svgClass.name}`

@@ -1,5 +1,6 @@
-import { createDisplayControls } from "./display-controls.js";
 import { createColorControls } from "./ui.js";
+import { createDisplayControls } from "./display-controls.js";
+import { createThemeControls } from "./theme-controls.js";
 import { loadSvg } from "./svg-loader.js";
 import { inspectSvg } from "./svg-inspector.js";
 
@@ -29,6 +30,10 @@ async function initializeApp() {
 	);
 	
 	createDisplayControls(svgElement);
+	createThemeControls(
+		svgElement,
+		svgClasses,
+	);
 
     } catch (error) {
         console.error(error);
